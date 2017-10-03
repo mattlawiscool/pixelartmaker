@@ -44,9 +44,9 @@ sizePicker = $('#sizePicker');
 
 function makeGrid(height, width) {
     for (var row = 1; row <= newHeight; row++) {
-        table2 += $('<tr>');
+        table2 += '<tr>';
         for (col = 1; col <= newWidth; col++) {
-            table2 += $("<td></td>");
+            table2 += "<td></td>";
         }
     }
     table.append(table2);
