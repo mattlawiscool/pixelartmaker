@@ -15,7 +15,14 @@ ACCOMPLISHED Use .submit as event figured out! WOOT WOOT!
 Added tests to insert tables into the dom! 
 But how do we make them stick?! Do not use .submit as it for somereason resets the page.
 Able to collect values in input_height and input_width
+
+10/3/17: 
+Make grid works with submit! Now need to be able to reset if clicked again rather than add on to it. 
+
+To do: Target single cells and change background on click! HOW?!
 */
+
+
 
 let height = $('#input_height');
 let width = $('#input_width');
@@ -23,6 +30,7 @@ let table = $('#pixel_canvas');
 let table2 = $('');
 let submit = $('.submit');
 let grid;
+let color = $('#colorPicker')
 
 
 console.log(height);
@@ -53,20 +61,21 @@ function makeGrid(height, width) {
     //table2.append(table2);
 }
 
-sizePicker.click(function() {
-    alert('You pushed submit!');
+sizePicker.submit(function() {
+    alert(`Here's your custom grid!`);
     newHeight = height.val(); // STORES THE VALUE OF WHAT WAS ENTERED!
     newWidth = width.val();
-    makeGrid()
+    event.preventDefault(); //prevents the .submit from submitting and resetting the DOM! 
+    makeGrid();
     console.log(newHeight);
     console.log(newWidth);
 
 
 });
-
-table.each(function() {
-    color = $(this);
-    color.click(function() {
-        color.css('background-color', 'red');
-    })
-})
+$(table).click(function() {
+    color = color.val();
+    let table3 = table.children();
+    let table4 = table3.children();
+    $(table4).attr('class', 'test')
+    $(table4).css('background', color);
+});
