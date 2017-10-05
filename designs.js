@@ -19,11 +19,14 @@ Able to collect values in input_height and input_width
 10/3/17: 
 Make grid works with submit! Now need to be able to reset if clicked again rather than add on to it. 
 
-To do: Target single cells and change background on click! HOW?!
+To do: Target single cells and change background on click! HOW?! And DONE! as 8:25 pm
+
+10/4/17:
+Added functionality to reset button. And fixed makeGrid so that it deletes old grid. Ready to clean up code and submit :)
 */
 
 
-
+//Universal Variables
 let height = $('#input_height');
 let width = $('#input_width');
 let table = $('#pixel_canvas');
@@ -31,51 +34,49 @@ let table2 = $('');
 let submit = $('.submit');
 let grid;
 let color = $('#colorPicker')
-
+let table3 = table.children();
+let table4 = table3.children();
 
 console.log(height);
 console.log(width);
 
 
 sizePicker = $('#sizePicker');
-
-/*function makeGrid(height, width) {
-    for (var row = 1; row <= height; row++) {
-        table += "<tr>";
-        for (col = 1; col <= width; col++) {
-            table += "<td></td>";
-        }
-    }
-} alternate code*/
-
-
+//Different Functions
 
 function makeGrid(height, width) {
+    let table2 = 0;
+    $('tr').remove();
     for (var row = 1; row <= newHeight; row++) {
-        table2 += '<tr>';
+        table2 += '<tr class="row">';
         for (col = 1; col <= newWidth; col++) {
             table2 += "<td></td>";
         }
     }
+
     table.append(table2);
     //table2.append(table2);
 }
-
+//Sibmit functionality
 sizePicker.submit(function() {
     alert(`Here's your custom grid!`);
     newHeight = height.val(); // STORES THE VALUE OF WHAT WAS ENTERED!
     newWidth = width.val();
     event.preventDefault(); //prevents the .submit from submitting and resetting the DOM! 
     makeGrid();
-    console.log(newHeight);
-    console.log(newWidth);
-
 
 });
-$(table).click(function() {
-    color = color.val();
+//Draw function 
+$(table).mouseenter(function() {
     let table3 = table.children();
     let table4 = table3.children();
-    $(table4).attr('class', 'test')
-    $(table4).css('background', color);
+    $(table4).click(function() { //This required to functions one to access the elements and the other to change! 
+        $(this).css('background', color.val());
+    })
 });
+//reset button added for fun
+$('.btn').click(function() {
+    $('tr').remove();
+    height.val(1);
+    width.val(1);
+})
